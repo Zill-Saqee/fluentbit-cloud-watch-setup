@@ -1,5 +1,14 @@
 # LocalStack & Fluent Bit Setup Guide
 
+## Overview
+This repository is designed to filter logs from `input.txt` and send them to two different CloudWatch log groups (`audit_logs` and `app_logs`). We create the log groups manually, while Fluent Bit is responsible for creating log streams dynamically.
+
+- **app_logs** will contain all logs.
+- **audit_logs** will only contain audit logs.
+- **Retention Policy**:
+  - **app_logs** will be kept for **30 days**.
+  - **audit_logs** will be retained for **7 years**.
+
 ## Run LocalStack Container
 
 LocalStack is a fully functional local AWS cloud stack. Follow the steps below to set up and run LocalStack:
@@ -128,6 +137,9 @@ echo '{ "name": "ABC", "log_type": "AUDIT" }' > input.txt
 ```sh
 echo '{ "name": "DEF", "log_type": "APP" }' >> input.txt
 ```
+
+---
+
 ### Notes:
 - Ensure you have **AWS CLI**, **Docker**, and **Fluent Bit** installed.
 - Adjust the configuration files (`fluent-bit.conf`, `setup-cloudwatch.sh`) as needed.
